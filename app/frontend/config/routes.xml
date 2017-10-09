@@ -5,4 +5,5 @@
 <route url="/comment-signaler-([0-9]+)\.html" module="Billets" action="signalerComment" vars="id"/>
 <route url="/billets-([0-9]+)\.html" module="Billets" action="show" vars="id" />
 <route url="/accueil.html" module="billets" action="accueil" />
+<route url="/user-destroy.html" module="billets" action="sessionDestroy" vars="id"/>
 </routes>

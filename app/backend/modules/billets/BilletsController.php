@@ -7,12 +7,14 @@ use \entity\Billets;
 use \entity\Comments;
 use \entity\Preface;
 use \entity\Intro;
+use \entity\User;
 use \entity\DescriptionAuteur;
 use \formBuilder\PrefaceFormBuilder;
 use \formBuilder\IntroFormBuilder;
 use \formBuilder\DescriptionAuteurFormBuilder;
 use \formBuilder\CommentFormBuilder;
 use \formBuilder\BilletsFormBuilder;
+use \formBuilder\UserFormBuilder;
 use \fram\FormHandler;
  
 class BilletsController extends BackController
@@ -249,16 +251,33 @@ class BilletsController extends BackController
  
     $this->page->addVar('form', $form->createView());
   }
+  public function executeSave(HTTPRequest $request)
+  {
+    if ($request->method() == 'POST')
+    {
+      $user = new User([
+
+        'pseudo' => $request->postData('pseudo'),
+        'passe' => sha1($request->postData('passe'))
+      ]);
+
+      $manager = $this->managers->getManagerOf('User');
+      
+
+   
+    $formBuilder = new UserFormBuilder($user);
+      $formBuilder->build();
+    
+      $form = $formBuilder->form();
+   
+      $formHandler = new FormHandler($form, $this->managers->getManagerOf('user'), $request);
+   
+      if ($formHandler->process())
+      {
+        $this->app->user()->setFlash($user->isNew() ? 'Le nouveau compte a bien été ajoutée !' : 'Le mot de passe a bien été modifié !');
+   
+        $this->app->httpResponse()->redirect('/admin/');
+      }
+    }  
+  } 
 }
-
-
-
-
-
-
-
-
-
-
-
-

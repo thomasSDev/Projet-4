@@ -1,61 +1,33 @@
-<?php $monUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; 
-echo $monUrl;     
+<?php
+$urlUri = $_SERVER['REQUEST_URI'];  
 ?>
-
 <!DOCTYPE html>
 <html>
-  <head>
+    <head>
     <?php include_once("head.php");?>
-  </head>
+    </head>
 
-  <body>
-    <header>
-      <?php include_once("header.php");  ?>
-    </header>
-    <div id="preface">
-      <?php if($monUrl == "http://localhost/"){ 
+    <body>
+        <div id="container">
+            <header id="header" class="row">
+                <?php include_once("header.php");  ?>
+            </header>
 
-        include_once("preface.php");
-      }
-      ?>
-    </div>
-    <div id="intro">
-      <?php if($monUrl == "http://localhost/accueil.html"){ 
 
-        include_once("intro.php");
-      }
-      ?>
-    </div>  
+            <div id="wrap">
+                <div id="content-wrap">
+                  <section id="main" class="row">
+                    <?php if ($user->hasFlash()) echo '<p style="text-align: center;">', $user->getFlash(), '</p>'; ?>
 
-    <div id="wrap">
-      
- 
-      <nav>
-        <ul>
-          <?php if ($user->isAuthenticated()) { ?>
-          <li><a href="/admin/">Admin</a></li>
-          <li><a href="/admin/billets-insert.html">Ajouter un billet</a></li>
-          <?php } ?>
-        </ul>
-      </nav>
- 
-      <div id="content-wrap">
-        <section id="main">
-          <?php if ($user->hasFlash()) echo '<p style="text-align: center;">', $user->getFlash(), '</p>'; ?>
- 
-          <?= $content ?>
-        </section>
-      </div>
-    <div id="descriptionAuteurLayout">
-      <?php if($monUrl == "http://localhost/accueil.html"){ 
+                    <?= $content ?>
+                  </section>
+                </div>
+            </div>  
 
-        include_once("descriptionAuteur.php");
-      }
-      ?>
-    </div>  
-      <footer>
-        <?php include_once("footer.php"); ?>
-      </footer>
-    </div>
-  </body>
+            <footer>
+                <?php include_once("footer.php"); ?>
+            </footer>
+        </div>
+    </body>
+
 </html>

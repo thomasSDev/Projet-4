@@ -1,22 +1,20 @@
-<!--<div class="col-md-12">
-	<div>
-		Voici le footer du blog
+<?php if($urlUri !=("/user-destroy.html")){ ?>
+<div class="col-md-12">
+	<div id="menu">
+		<ul>
+			<li><a href="/">Page d'accueil</a></li>
+			<li><a href="/accueil.html">Liste des billets</a></li>
+			<?php if ($user->isAuthenticated()) { ?>
+		        <li><a href="/admin/">Admin</a></li>
+		        <li><a href="/admin/billets-insert.html">Ajouter un billet</a></li>
+		        <li><a href="/user-destroy.html">Se déconnecter</a></li>
+          	<?php } 
+          	else{ ?>
+          		<li><a href="/admin/">S'identifier</button></li>
+          	<?php } ?>
+		</ul>
 	</div>
-	<button id="identif">S'identifier</button>
-	<div id="divFormIndex">
-		<a href="/admin/">Connexion</a>
-		<form id="formIndex" action="index.php?page=users" method="POST">
-         	<p><label>Pseudo : 
-            <input type="text" name="pseudo" value="<?php 
-                    if(isset($_SESSION["pseudo"])){
-                        echo htmlspecialchars($_SESSION['pseudo']);
-                    }?>"> </label></p>
-            <p><label>Mot de passe : 
-            <input type="password" name="passe" value="<?php 
-	                if(isset($_SESSION["passe"])){
-	                    echo htmlspecialchars($_SESSION['passe']);
-	                }?>"> </label></p>
-            <p><input type="submit" name="submit"></p>
-		</form>
-	</div>			
-</div>-->
+	
+</div>
+
+<?php } ?>

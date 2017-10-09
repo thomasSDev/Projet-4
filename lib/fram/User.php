@@ -47,4 +47,8 @@ class User
   {
     $_SESSION['flash'] = $value;
   }
+  public function sessionDestry()
+  {
+    session_destroy();
+  }
 }

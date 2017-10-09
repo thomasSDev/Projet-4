@@ -9,4 +9,8 @@
   <route url="/admin/preface-update-([0-9]+)\.html" module="Billets" action="updatePreface" vars="id" />
   <route url="/admin/intro-update-([0-9]+)\.html" module="Billets" action="updateIntro" vars="id" />
   <route url="/admin/descriptionAuteur-update-([0-9]+)\.html" module="Billets" action="updateDescriptionAuteur" vars="id" />
+  <route url="/admin/user-update-([0-9]+)\.html" module="Billets" action="updateUser" vars="id" />
+  <route url="/admin/user-add\.html" module="Billets" action="addUser" vars="id" />
+  <route url="/admin/user-save\.html" module="Billets" action="save" vars="id" />
+  
 </routes>

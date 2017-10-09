@@ -3,6 +3,9 @@ namespace app\backend\modules\connexion;
  
 use \fram\BackController;
 use \fram\HTTPRequest;
+use \entity\User;
+use \model\UserManager;
+use \model\UserManagerPDO;
  
 class ConnexionController extends BackController
 {
@@ -10,13 +13,22 @@ class ConnexionController extends BackController
   {
     $this->page->addVar('title', 'Connexion');
  
-    if ($request->postExists('login'))
+
+   
+    if (($request->postExists('pseudo')) && ($request->postExists('password')))
     {
-      $login = $request->postData('login');
-      $password = $request->postData('password');
- 
-      if ($login == $this->app->config()->get('login') && $password == $this->app->config()->get('pass'))
+      $manager = $this->managers->getManagerOf('User');
+
+      $user = $manager->getUser($request->postData('pseudo'));
+
+
+      $login = $request->postData('pseudo');
+      $password = sha1($request->postData('password'));
+   
+
+      if ($login == $user->pseudo() && ($password == $user->passe()))
       {
+
         $this->app->user()->setAuthenticated(true);
         $this->app->httpResponse()->redirect('.');
       }

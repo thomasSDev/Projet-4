@@ -101,7 +101,7 @@ class BilletsController extends BackController
         $manager->signaler($comment);
 
         $this->app->user()->setFlash('Le commentaire a bien été signalé, merci !');
-        $this->app->httpResponse()->redirect('billets-'.$comment->billets().'.html');
+        $this->app->httpResponse()->redirect('billets-'.$request->getData('billets').'.html');
     }
 
     public function executeAccueil(HTTPRequest $request)
@@ -184,5 +184,9 @@ class BilletsController extends BackController
     $this->page->addVar('listeDescriptionAuteur', $listeDescriptionAuteur);
 
 
+  }
+  public function executeSessionDestroy()
+  {
+        session_destroy();
   }
 }
