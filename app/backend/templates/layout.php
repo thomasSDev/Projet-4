@@ -1,1 +1,1 @@
-<?php require __DIR__.'/../../frontend/templates/layout.php';
+<?php require __DIR__.'/../../Frontend/templates/layout.php';

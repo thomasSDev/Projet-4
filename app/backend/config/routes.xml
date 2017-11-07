@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-  <route url="/admin/" module="Billets" action="index" />
-  <route url="/admin/billets-insert\.html" module="Billets" action="insert" />
-  <route url="/admin/billets-update-([0-9]+)\.html" module="Billets" action="update" vars="id" />
-  <route url="/admin/billets-delete-([0-9]+)\.html" module="Billets" action="delete" vars="id" />
-  <route url="/admin/comment-update-([0-9]+)\.html" module="Billets" action="updateComment" vars="id" />
-  <route url="/admin/comment-delete-([0-9]+)\.html" module="Billets" action="deleteComment" vars="id" />
-  <route url="/admin/preface-update-([0-9]+)\.html" module="Billets" action="updatePreface" vars="id" />
-  <route url="/admin/intro-update-([0-9]+)\.html" module="Billets" action="updateIntro" vars="id" />
-  <route url="/admin/descriptionAuteur-update-([0-9]+)\.html" module="Billets" action="updateDescriptionAuteur" vars="id" />
-  <route url="/admin/user-update-([0-9]+)\.html" module="Billets" action="updateUser" vars="id" />
-  <route url="/admin/user-add\.html" module="Billets" action="addUser" vars="id" />
-  <route url="/admin/user-save\.html" module="Billets" action="save" vars="id" />
+  <route url="/admin/" module="Billet" action="index" />
+  <route url="/admin/billet-insert\.html" module="Billet" action="insert" />
+  <route url="/admin/billet-update-([0-9]+)\.html" module="Billet" action="update" vars="id" />
+  <route url="/admin/billet-delete-([0-9]+)\.html" module="Billet" action="delete" vars="id" />
+  <route url="/admin/billet-([0-9]+)\.html" module="Billet" action="show" vars="id" />
+  <route url="/admin/comment-update-([0-9]+)\.html" module="Comment" action="updateComment" vars="id" />
+  <route url="/admin/comment-delete-([0-9]+)\.html" module="Comment" action="deleteComment" vars="id" />
+  <route url="/admin/comment-stop-signaler-([0-9]+)\.html" module="Comment" action="stopSignalerComment" vars="id"/>
+  <route url="/admin/commentaires-signales\.html" module="Comment" action="commentsSignales" />
+  <route url="/admin/preface-update-([0-9]+)\.html" module="Preface" action="updatePreface" vars="id" />
+  <route url="/admin/intro-update-([0-9]+)\.html" module="Intro" action="updateIntro" vars="id" />
+  <route url="/admin/description-auteur-update-([0-9]+)\.html" module="DescriptionAuteur" action="updateDescriptionAuteur" vars="id" />
+  <route url="/admin/user-update-([0-9]+)\.html" module="User" action="updateUser" vars="id" />
+  <route url="/admin/user-delete-([0-9]+)\.html" module="User" action="deleteUser" vars="id" />
+  <route url="/admin/user-save\.html" module="User" action="insert"/>
+  <route url="/admin/user-liste.html" module="User" action="listeUsers" />
+  <route url="/admin/user-destroy.html" module="User" action="sessionDestroy" vars="id"/>
   
 </routes>

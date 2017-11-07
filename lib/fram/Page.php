@@ -24,7 +24,7 @@ class Page extends ApplicationComponent
       throw new \RuntimeException('La vue spécifiée n\'existe pas');
     }
   
-    $user = $this->app->user();
+    $users = $this->app->users();
  
     extract($this->vars);
 

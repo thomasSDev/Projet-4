@@ -33,7 +33,7 @@ abstract class PrefaceManager extends Manager
    * @param $id int L'identifiant de la preface à récupérer
    * @return preface la preface demandée
    */
-  abstract public function getUnique(Preface $preface);
+  abstract public function getUnique($id);
  
    /**
    * Méthode retournant une liste de prefaces demandée.

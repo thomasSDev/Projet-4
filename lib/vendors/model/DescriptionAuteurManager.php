@@ -33,7 +33,7 @@ abstract class DescriptionAuteurManager extends Manager
    * @param $id int L'identifiant du billet à récupérer
    * @return descriptionAuteur le descriptionAuteur demandée
    */
-  abstract public function getUnique(DescriptionAuteur $descriptionAuteur);
+  abstract public function getUnique($id);
  
    /**
    * Méthode retournant une liste de descriptionAuteur demandée.

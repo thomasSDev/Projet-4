@@ -6,18 +6,25 @@ use \entity\Preface;
 class PrefaceManagerPDO extends PrefaceManager
 {
 
-  public function getUnique(Preface $preface)
+  public function getUnique($id)
   {
-    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM preface');
-    $requete->bindValue(':titre', $preface->titre());
-    $requete->bindValue(':auteur', $preface->auteur());
-    $requete->bindValue(':contenu', $preface->contenu());
-    $preface = $requete->fetch();
+    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM preface WHERE id = :id');
+    $requete->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+    $requete->execute();
  
     $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\entity\Preface');
  
-
+    if ($preface = $requete->fetch())
+    {
+      $preface->setDateAjout(new \DateTime($preface->dateAjout()));
+      $preface->setDateModif(new \DateTime($preface->dateModif()));
+ 
+      return $preface;
+    }
+ 
+    return null;
   }
+ 
     public function getList($debut = -1, $limite = -1)
   {
     $sql = 'SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM preface';

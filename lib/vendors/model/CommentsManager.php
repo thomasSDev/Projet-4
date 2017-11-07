@@ -21,11 +21,11 @@ abstract class CommentsManager extends Manager
   abstract public function DeleteComment($id);
  
   /**
-   * Méthode permettant de supprimer tous les commentaires liés à une billets
-   * @param $billets L'identifiant de le billets dont les commentaires doivent être supprimés
+   * Méthode permettant de supprimer tous les commentaires liés à un billet
+   * @param $billet L'identifiant de le billet dont les commentaires doivent être supprimés
    * @return void
    */
-  abstract public function deleteFromBillets($billets);
+  abstract public function deleteFromBillet($billet);
  
   /**
    * Méthode permettant d'enregistrer un commentaire.
@@ -46,10 +46,10 @@ abstract class CommentsManager extends Manager
  
   /**
    * Méthode permettant de récupérer une liste de commentaires.
-   * @param $billets le billets sur laquelle on veut récupérer les commentaires
+   * @param $billet le billet sur laquelle on veut récupérer les commentaires
    * @return array
    */
-  abstract public function getListOf($billets);
+  abstract public function getListOf($billet);
  
   /**
    * Méthode permettant de modifier un commentaire.
@@ -64,7 +64,12 @@ abstract class CommentsManager extends Manager
    * @return Comments
    */
   abstract public function get($id);
-
+   /**
+   * Méthode permettant d'obtenir un commentaire spécifique.
+   * @param $id L'identifiant du commentaire
+   * @return Comments
+   */
+  abstract public function getUnique($id);
   /**
    * Méthode permettant de signaler un commentaire.
    * @param $comment le commentaire à signaler
@@ -72,6 +77,8 @@ abstract class CommentsManager extends Manager
    */
   abstract public function signaler(Comments $comment);
 
+
+  abstract public function stopSignaler(Comments $comment);
     /**
    * Méthode permettant d'obtenir la liste des commentaires signalés.
    * @param $debut int le premièr commentaire à sélectionner

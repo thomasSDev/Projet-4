@@ -14,7 +14,17 @@ abstract class UserManager extends Manager
    * @see self::modify()
    * @return void
    */
-  abstract public function save(User $user);
+  public function save(User $user)
+  {
+    if ($user->isValid())
+    {
+      $user->isNew() ? $this->addUser($user) : $this->modify($user);
+    }
+    else
+    {
+      throw new \RuntimeException('le user doit être valide pour être enregistré');
+    }
+  }
   
 
  
@@ -33,7 +43,12 @@ abstract class UserManager extends Manager
    */
   abstract protected function modify(User $user);
 
-  abstract public function getUser($pseudo);
+  abstract public function getUser($mail);
 
-  abstract function addUser(User $user);
+  abstract public function addUser(User $user);
+
+  abstract public function count();
+
+  abstract public function getUnique($id);
+
 }

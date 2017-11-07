@@ -16,7 +16,7 @@ class PrefaceFormBuilder extends FormBuilder
         'name' => 'auteur',
         'maxLength' => 20,
         'validators' => [
-          new MaxLengthValidator('L\'auteur spécifié est trop long (20 caractères maximum)', 20),
+          new MaxLengthValidator('<div class="alert alert-danger" role="alert">L\'auteur spécifié est trop long (20 caractères maximum)</div>', 20),
           new NotNullValidator('Merci de spécifier l\'auteur de la préface'),
         ],
        ]))
@@ -25,17 +25,15 @@ class PrefaceFormBuilder extends FormBuilder
         'name' => 'titre',
         'maxLength' => 100,
         'validators' => [
-          new MaxLengthValidator('Le titre spécifié est trop long (100 caractères maximum)', 100),
+          new MaxLengthValidator('<div class="alert alert-danger" role="alert">Le titre spécifié est trop long (100 caractères maximum)</div>', 100),
           new NotNullValidator('Merci de spécifier le titre de la préface'),
         ],
        ]))
        ->add(new TextField([
         'label' => 'Contenu',
         'name' => 'contenu',
-        'rows' => 8,
-        'cols' => 60,
         'validators' => [
-          new NotNullValidator('Merci de spécifier le contenu de la préface'),
+          new NotNullValidator('<div class="alert alert-danger" role="alert">Merci de spécifier le contenu de la préface</div>'),
         ],
        ]));
   }

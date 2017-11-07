@@ -16,17 +16,15 @@ class UserFormBuilder extends FormBuilder
         'name' => 'pseudo',
         'maxLength' => 50,
         'validators' => [
-          new MaxLengthValidator('Le pseudo spécifié est trop long (50 caractères maximum)', 50),
-          new NotNullValidator('Merci de spécifier le pseudo'),
+          new MaxLengthValidator('<div class="alert alert-danger" role="alert">Le pseudo spécifié est trop long (50 caractères maximum)</div>', 50),
+          new NotNullValidator('<div class="alert alert-danger" role="alert">Merci de spécifier le pseudo</div>'),
         ],
        ]))
        ->add(new TextField([
         'label' => 'Passe',
         'name' => 'passe',
-        'rows' => 7,
-        'cols' => 50,
         'validators' => [
-          new NotNullValidator('Merci de spécifier votre commentaire'),
+          new NotNullValidator('<div class="alert alert-danger" role="alert">Merci d\'entrer un mot de passe</div>'),
         ],
        ]));
   }

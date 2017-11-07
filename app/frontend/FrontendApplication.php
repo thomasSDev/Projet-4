@@ -1,5 +1,5 @@
 <?php
-namespace app\frontend;
+namespace app\Frontend;
  
 use \fram\Application;
  

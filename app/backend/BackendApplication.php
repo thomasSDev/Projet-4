@@ -1,5 +1,5 @@
 <?php
-namespace app\backend;
+namespace app\Backend;
  
 use \fram\Application;
  
@@ -14,13 +14,13 @@ class BackendApplication extends Application
  
   public function run()
   {
-    if ($this->user->isAuthenticated())
+    if ($this->users->isAuthenticated())
     {
       $controller = $this->getController();
     }
     else
     {
-      $controller = new modules\connexion\ConnexionController($this, 'Connexion', 'index');
+      $controller = new modules\Connexion\ConnexionController($this, 'Connexion', 'index');
     }
  
     $controller->execute();

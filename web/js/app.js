@@ -1,8 +1,10 @@
 $( document ).ready(function() {
 
-	//scroll on click doubleDown sur la home.php
-	var scroll = Object.create(Scroll);
-	scroll.init();
 
+	var burger = Object.create(Burger);
+	burger.init();
+
+	var removeNavBarTop = Object.create(RemoveNavBarTop);
+	removeNavBarTop.init();
 
 });

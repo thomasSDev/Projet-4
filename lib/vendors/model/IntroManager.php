@@ -33,7 +33,7 @@ abstract class IntroManager extends Manager
    * @param $id int L'identifiant du billet à récupérer
    * @return intro le intro demandée
    */
-  abstract public function getUnique(Intro $intro);
+  abstract public function getUnique($id);
  
    /**
    * Méthode retournant une liste de intro demandée.

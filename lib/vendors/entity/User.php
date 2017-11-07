@@ -6,6 +6,7 @@ use \fram\Entity;
 class User extends Entity
 {
   protected $pseudo,
+            $mail,
             $passe;
 
 
@@ -17,9 +18,18 @@ class User extends Entity
     return !(empty($this->pseudo) || empty($this->passe));
   }
 
-
   // SETTERS //
 
+
+  public function setMail($mail)
+  {
+    if (!is_string($mail) || empty($mail))
+    {
+      $this->erreurs[] = self::PSEUDO_INVALIDE;
+    }
+
+    $this->mail = $mail;
+  }
   public function setPseudo($pseudo)
   {
     if (!is_string($pseudo) || empty($pseudo))
@@ -42,6 +52,10 @@ class User extends Entity
 
   // GETTERS //
 
+  public function mail()
+  {
+    return $this->mail;
+  }
   public function pseudo()
   {
     return $this->pseudo;

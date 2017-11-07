@@ -5,7 +5,7 @@ use \fram\Entity;
  
 class Comments extends Entity
 {
-  protected $billets,
+  protected $billet_id,
             $pseudo,
             $contenu,
             $dateAjout;
@@ -18,9 +18,9 @@ class Comments extends Entity
     return !(empty($this->pseudo) || empty($this->contenu));
   }
  
-  public function setBillets($billets)
+  public function setBillet($billet)
   {
-    $this->billets = (int) $billets;
+    $this->billet_id = (int) $billet;
   }
  
   public function setPseudo($pseudo)
@@ -48,9 +48,9 @@ class Comments extends Entity
     $this->dateAjout = $dateAjout;
   }
  
-  public function billets()
+  public function billet()
   {
-    return $this->billets;
+    return $this->billet_id;
   }
  
   public function pseudo()

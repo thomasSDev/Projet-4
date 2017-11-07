@@ -6,18 +6,25 @@ use \entity\Intro;
 class IntroManagerPDO extends IntroManager
 {
 
-  public function getUnique(Intro $intro)
+  public function getUnique($id)
   {
-    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM intro');
-    $requete->bindValue(':titre', $intro->titre());
-    $requete->bindValue(':auteur', $intro->auteur());
-    $requete->bindValue(':contenu', $intro->contenu());
-    $intro = $requete->fetch();
+    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM intro WHERE id = :id');
+    $requete->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+    $requete->execute();
  
-    $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\entity\Intro');
+    $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\entity\Preface');
  
-
+    if ($intro = $requete->fetch())
+    {
+      $intro->setDateAjout(new \DateTime($intro->dateAjout()));
+      $intro->setDateModif(new \DateTime($intro->dateModif()));
+ 
+      return $intro;
+    }
+ 
+    return null;
   }
+ 
     public function getList($debut = -1, $limite = -1)
   {
     $sql = 'SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM intro';

@@ -7,11 +7,11 @@ class UserManagerPDO extends UserManager
 {
 
 
-  public function getUser($pseudo)
+  public function getUser($mail)
   {
-    $request = $this->dao->prepare('SELECT pseudo, passe FROM identifiants WHERE pseudo = :pseudo');
+    $request = $this->dao->prepare('SELECT mail, pseudo, passe FROM identifiants WHERE mail = :mail');
     
-    $request->bindValue(':pseudo', $pseudo);
+    $request->bindValue(':mail', $mail);
     $request->execute();
 
  
@@ -27,7 +27,7 @@ class UserManagerPDO extends UserManager
   }
     public function getList($debut = -1, $limite = -1)
   {
-    $sql = 'SELECT id, pseudo, passe FROM identifiants';
+    $sql = 'SELECT id, mail, pseudo, passe FROM identifiants';
  
     if ($debut != -1 || $limite != -1)
     {
@@ -37,25 +37,28 @@ class UserManagerPDO extends UserManager
     $request = $this->dao->query($sql);
     $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\entity\User');
  
-    $listeUser = $request->fetchAll();
+    $listeUsers = $request->fetchAll();
  
-    foreach ($listeUser as $user)
+    foreach ($listeUsers as $user)
     {
-      $user->setDateAjout(new \DateTime($user->dateAjout()));
-      $user->setDateModif(new \DateTime($user->dateModif()));
+      $user;
     }
  
     $request->closeCursor();
  
-    return $listeUser;
+    return $listeUsers;
   }
   
-
+  public function count()
+  {
+    return $this->dao->query('SELECT COUNT(*) FROM identifiants')->fetchColumn();
+  }
  
   public function modify(User $user)
   {
-    $request = $this->dao->prepare('UPDATE identifiants SET pseudo = :pseudo, passe = :passe WHERE id = :id');
+    $request = $this->dao->prepare('UPDATE identifiants SET mail = :mail, pseudo = :pseudo, passe = :passe WHERE id = :id');
  
+    $request->bindValue(':mail', $user->mail());
     $request->bindValue(':pseudo', $user->pseudo());
     $request->bindValue(':passe', $user->passe());
     $request->bindValue(':id', $user->id(), \PDO::PARAM_INT);
@@ -64,23 +67,55 @@ class UserManagerPDO extends UserManager
   }
   public function addUser(User $user)
   {
-    $request = $this->dao->prepare('INSERT INTO identifiants SET pseudo = :pseudo, passe = :passe');
+    $request = $this->dao->prepare('INSERT INTO identifiants SET mail = :mail, pseudo = :pseudo, passe = :passe');
     
+    $request->bindValue(':mail', $user->mail());
     $request->bindValue(':pseudo', $user->pseudo());
     $request->bindValue(':passe', $user->passe());
     
     $request->execute();
 
   }
-  public function save(User $user)
+  
+  public function getUnique($id)
   {
-    if ($user->isValid())
+    $request = $this->dao->prepare('SELECT id, mail, pseudo, passe FROM identifiants WHERE id = :id');
+    $request->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+    $request->execute();
+ 
+    $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\entity\User');
+ 
+    if ($user = $request->fetch())
     {
-      $user->isNew() ? $this->addUser($user) : $this->modify($user);
+      $user;
+ 
+      return $user;
     }
-    else
-    {
-      throw new \RuntimeException('le user doit être validée pour être enregistrée');
-    }
+ 
+    return null;
   }
+    public function getMail($mail)
+  {
+    $request = $this->dao->prepare('SELECT id, mail, pseudo, passe FROM identifiants WHERE mail = :mail');
+
+    $request->bindValue(':mail', (string) $mail, \PDO::PARAM_STR);
+    $request->execute();
+ 
+    $request->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\entity\User');
+ 
+    if ($user = $request->fetch())
+    {
+      $user;
+ 
+      return $user;
+    }
+ 
+    return null;
+  }
+  public function deleteUser($id)
+  {
+    $this->dao->exec('DELETE FROM identifiants WHERE id = '.(int) $id);
+  }
+ 
+ 
 }

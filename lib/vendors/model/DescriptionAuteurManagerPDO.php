@@ -6,18 +6,25 @@ use \entity\DescriptionAuteur;
 class DescriptionAuteurManagerPDO extends DescriptionAuteurManager
 {
 
-  public function getUnique(DescriptionAuteur $descriptionAuteur)
+  public function getUnique($id)
   {
-    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM description_auteur');
-    $requete->bindValue(':titre', $descriptionAuteur->titre());
-    $requete->bindValue(':auteur', $descriptionAuteur->auteur());
-    $requete->bindValue(':contenu', $descriptionAuteur->contenu());
-    $descriptionAuteur = $requete->fetch();
+    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM description_auteur WHERE id = :id');
+    $requete->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+    $requete->execute();
  
     $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\entity\DescriptionAuteur');
  
-
+    if ($descriptionAuteur = $requete->fetch())
+    {
+      $descriptionAuteur->setDateAjout(new \DateTime($descriptionAuteur->dateAjout()));
+      $descriptionAuteur->setDateModif(new \DateTime($descriptionAuteur->dateModif()));
+ 
+      return $descriptionAuteur;
+    }
+ 
+    return null;
   }
+ 
     public function getList($debut = -1, $limite = -1)
   {
     $sql = 'SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM description_auteur';
